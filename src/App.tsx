@@ -3,6 +3,7 @@ import './App.css'
 import Sidebar from './Features/Sidebar/sidebar'
 import ContactForm from './Compoent/Contact/contactForm'
 import ChartMap from './Compoent/ChartMap/chartMap'
+import ContactList from './Compoent/Contact/contactList'
 function App() {
 
 

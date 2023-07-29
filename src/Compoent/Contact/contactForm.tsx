@@ -2,6 +2,7 @@ import React,{useState} from 'react'
 import './contactForm.css'
 import { useDispatch } from 'react-redux'
 import { addContact } from '../../Features/contactSlice/contactSlice'
+import ContactList from './contactList'
 const contactForm: React.FC = () => {
   const [firstName,setFirstName] = useState('')
   const [lastName,setLastName] = useState('')
@@ -24,7 +25,7 @@ const contactForm: React.FC = () => {
 
   return (
     <div className='m-auto'>
-      <form onSubmit={onSubmitHandler} >
+      <form onSubmit={onSubmitHandler} className='mb-4'>
           <div className='flex flex-col gap-6'>
             <label htmlFor="firstName" className='text-xl' >First Name : 
               <input type="text" name="firstName" id="firstName" value={firstName} placeholder='Enter First Name' onChange={(e) => {setFirstName(e.target.value)}} className='border-2 p-1 rounded-md' />
@@ -48,6 +49,7 @@ const contactForm: React.FC = () => {
             <button className='bg-gray-500 p-2 rounded-lg hover:scale-105 duration-300 ease-in-out'>Submit</button>
           </div>
       </form>
+<ContactList/>
     </div>
   )
 }
