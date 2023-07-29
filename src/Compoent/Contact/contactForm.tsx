@@ -1,9 +1,15 @@
 import React,{useState} from 'react'
 import './contactForm.css'
 import { useDispatch } from 'react-redux'
-import { addContact } from '../../Features/contactSlice/contactSlice'
+import { Contact, addContact,editContact } from '../../Features/contactSlice/contactSlice'
 import ContactList from './contactList'
-const contactForm: React.FC = () => {
+
+interface ContactFormProps {
+  contact?: Contact;
+  onEditComplete?: () => void;
+}
+
+const contactForm: React.FC<ContactFormProps> = ({contact,onEditComplete}) => {
   const [firstName,setFirstName] = useState('')
   const [lastName,setLastName] = useState('')
   const [isActive,setIsActive] = useState(true)
@@ -12,15 +18,22 @@ const contactForm: React.FC = () => {
   const onSubmitHandler = (e:React.FormEvent) => {
       e.preventDefault()
       console.log(firstName,lastName,isActive)
-      dispatch(addContact({
-        id : Date.now(),
-        firstName,
-        lastName,
-        isActive
-      }))
-      setFirstName('')
-      setLastName('')
-      setIsActive(true)
+      if(contact){
+        dispatch(editContact({...contact,firstName,lastName,isActive}))
+        if(onEditComplete){
+          onEditComplete()
+        }
+      }else{
+        dispatch(addContact({
+          id : Date.now(),
+          firstName,
+          lastName,
+          isActive
+        }))
+        setFirstName('')
+        setLastName('')
+        setIsActive(true)
+      }
   }
 
   return (
@@ -46,10 +59,10 @@ const contactForm: React.FC = () => {
             </label>
             </div>
             </fieldset>
-            <button className='bg-gray-500 p-2 rounded-lg hover:scale-105 duration-300 ease-in-out'>Submit</button>
+            <button className='bg-gray-500 text-white p-2 rounded-lg hover:scale-105 duration-300 ease-in-out'>{contact ? 'Edit contact' : "Submit"}</button>
           </div>
       </form>
-<ContactList/>
+
     </div>
   )
 }

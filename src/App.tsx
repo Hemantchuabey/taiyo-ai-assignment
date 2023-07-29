@@ -8,14 +8,20 @@ function App() {
 
 
   return (
+  
     <div className='flex w-full'>
      <Sidebar/>
+     <div className='m-auto'>
      <Routes>
       <Route path='/' element={<ContactForm/>}></Route>
       <Route path='/contact' element={<ContactForm/>}></Route>
       <Route path='/chartMap' element={<ChartMap/>}></Route>
      </Routes>
+     <ContactList/>
+     </div>
+  
     </div>
+
   )
 }
 
